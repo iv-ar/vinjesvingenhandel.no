@@ -1,0 +1,9 @@
+@page "/vilkår"
+@model VSH.Pages.SalesTerms
+@{
+    ViewData["Title"] = "Salgsvilkår";
+}
+
+<div class="container py-5 dynamic-content">
+    @Html.Raw(Model.TermsPageHtml)
+</div>

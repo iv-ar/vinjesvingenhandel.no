@@ -1,0 +1,72 @@
+<div class="modal" tabindex="-1" id="product-modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="product-modal-title">Nytt produkt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="margin-bottom-sm" id="product-form">
+                    <div class="loader">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Laster...</span>
+                        </div>
+                    </div>
+                    <fieldset class="mb-3">
+                        <label class="form-label mb-2" for="input-name">Navn</label>
+                        <input class="form-control" type="text" name="input-name" id="input-name" required/>
+                    </fieldset>
+                    <fieldset class="mb-3 row">
+                        <div class="col">
+                            <label class="form-label mb-2" for="input-price">Pris</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="input-price" id="input-price" required/>
+                                <select class="form-select" style="max-width: 85px;" id="input-price-suffix">
+                                    <option selected value="0">,-</option>
+                                    <option value="1">,- kg</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label mb-2" for="input-count">Besetning (-1 for uendelig)</label>
+                            <div class="input-group">
+                                <input class="form-control" type="number" min="-1" name="input-count" id="input-count" placeholder="Antall produkter/kilo for salg"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="mb-3">
+                        <label class="form-label mb-2" for="input-description">Beskrivelse</label>
+                        <textarea class="form-control" name="input-description" id="input-description"></textarea>
+                    </fieldset>
+                    <fieldset class="mb-3">
+                        <label for="" class="form-label mb-2">Bilder</label>
+                        <div class="row pb-2" id="input-images-row">
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="show-on-frontpage" name="show-on-frontpage">
+                        <label class="form-check-label" for="show-on-frontpage">Vis på forsiden</label>
+                    </fieldset>
+                    <fieldset class="mb-3">
+                        <label for="" class="form-label mb-2">Kategori</label>
+                        <div id="product-category-picker-wrapper">
+                            <div id="picker" class="d-none"></div>
+                            <div class="d-flex justify-content-center" id="loader">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Laster...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-lg btn-primary" id="submit-product-form">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <span class="text">Lagre</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

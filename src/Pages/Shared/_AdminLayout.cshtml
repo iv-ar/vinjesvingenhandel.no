@@ -1,0 +1,114 @@
+@using VSH.Data.Miscellaneous
+@using Microsoft.Extensions.Options
+@using Microsoft.Extensions.Configuration
+@using VSH.Utilities
+@inject IOptions<AppSettings.GeneralConfiguration> Options;
+@inject IConfiguration Configuration;
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="~/dist/backbundle.css" asp-append-version="true">
+    @await RenderSectionAsync("Head", required: false)
+    <title>@ViewData["Title"] - Kontoret - @Options.Value.StoreName</title>
+</head>
+<body>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex mb-3">
+                <div class="flex-grow-1">
+                    <h2>@Options.Value.ShortStoreName</h2>
+                </div>
+                <div class="dropdown" id="account-dropdown">
+                    <button class="dropdown-toggle btn btn-light" type="button" id="account-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-lg-inline">@Context.User.Identity?.Name</span>
+                        <span class="d-inline d-lg-none">
+                            <i class="bi bi-person fs-3"></i>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account-dropdown-btn">
+                        <a href="/" title="Gå til forsiden" class="dropdown-item">Gå til forsiden</a>
+                        <span class="dropdown-item open-update-password-modal cursor-pointer">Endre passord</span>
+                        <hr class="dropdown-divider">
+                        <span class="text-danger dropdown-item logout-btn cursor-pointer">Logg ut</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 52px;overflow-y: hidden">
+        <div style="overflow: auto hidden">
+            <ul class="nav nav-tabs" role="tablist" style="flex-wrap: nowrap;">
+                <li class="nav-item" role="presentation">
+                    @if (Context.Request.Path.Value?.StartsWith("/kontoret/produkter") ?? false) {
+                        <a class="nav-link active" href="/kontoret/produkter" role="tab">Produkter</a>
+                    } else {
+                        <a class="nav-link" href="/kontoret/produkter" role="tab">Produkter</a>
+                    }
+                </li>
+                <li class="nav-item" role="presentation">
+                    @if (Context.Request.Path.Value?.StartsWith("/kontoret/bestillinger") ?? false) {
+                        <a class="nav-link active" href="/kontoret/bestillinger" role="tab">Bestillinger</a>
+                    } else {
+                        <a class="nav-link" href="/kontoret/bestillinger" role="tab">Bestillinger</a>
+                    }
+                </li>
+                <li class="nav-item" role="presentation">
+                    @if (Context.Request.Path.Value?.StartsWith("/kontoret/dokumenter") ?? false) {
+                        <a class="nav-link active" href="/kontoret/dokumenter" role="tab">Dokumenter</a>
+                    } else {
+                        <a class="nav-link" href="/kontoret/dokumenter" role="tab">Dokumenter</a>
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+    if (window.innerWidth < 768) {
+    document.querySelector(".nav").style.paddingBottom = "50px";
+    document.querySelector(".nav").className = "nav nav-pills";
+    }
+    </script>
+
+    <main class="py-3">
+        @RenderBody()
+    </main>
+</div>
+
+<div class="modal" tabindex="-1" id="update-password-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="product-modal-title">Endre passord</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return false">
+                    <fieldset>
+                        <label for="input-new-password" class="form-label mb-2">Nytt passord</label>
+                        <input class="form-control" type="password" id="input-new-password" minlength="6" min="6" placeholder="Minst 6 karakterer" required>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-primary" id="submit-new-password-form">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <span class="text">Lagre</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span id="version-text" style="position: absolute; bottom: 0; right: 0">@Configuration.GetVersion()</span>
+
+<script src="~/dist/backbundle.min.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

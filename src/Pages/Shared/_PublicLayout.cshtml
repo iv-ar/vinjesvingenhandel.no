@@ -1,0 +1,152 @@
+﻿@using VSH.Data.Miscellaneous
+@using Microsoft.Extensions.Options
+@using Microsoft.Extensions.Localization
+@using IOL.Helpers
+@inject IOptions<AppSettings.GeneralConfiguration> Options;
+@inject IStringLocalizer<SharedPageResources> Localizer;
+@{
+    var host = Context.Request.GetRequestHost();
+    var currentUrl = host + Context.Request.Path.Value;
+    const string CURRENT_CULTURE = "nn";
+    var openGraphData = ViewData["open_graph"] as OpenGraphData;
+}
+<!DOCTYPE html>
+<html lang="@CURRENT_CULTURE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="@(openGraphData?.Description ?? Options.Value.DefaultDescription)"/>
+    <meta name="geo.region" content="NO"/>
+    <meta name="geo.placename" content="Vinje"/>
+    <meta name="geo.position" content="59.621963;7.82424"/>
+    <meta name="ICBM" content="59.621963, 7.82424"/>
+    <meta property="og:type" content="@(openGraphData?.Type ?? "website")"/>
+    <meta property="og:locale" content="@(openGraphData?.Locale ?? CURRENT_CULTURE)"/>
+    <meta property="og:title" content="@(openGraphData?.Title ?? ViewData["Title"])"/>
+    <meta property="og:url" content="@(openGraphData?.Url ?? currentUrl)"/>
+    <meta property="og:description" content="@(openGraphData?.Description ?? Options.Value.DefaultDescription)"/>
+    <meta property="og:site_name" content="@(openGraphData?.SiteName ?? Options.Value.StoreName)"/>
+    <meta property="og:image" content="@(openGraphData?.Image ?? (host + "/assets/profile/og_default.png"))"/>
+    <link rel="stylesheet" href="~/dist/frontbundle.css" asp-append-version="true">
+    @await RenderSectionAsync("Head", required: false)
+    <title>@ViewData["Title"] - @Options.Value.StoreName</title>
+</head>
+<body class="d-flex min-vh-100 flex-column">
+
+<nav class="navbar fixed-top navbar-expand-lg user-select-none bg-white">
+    <a class="navbar-brand ps-3" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195.32 48.63">
+            <defs>
+                <style>.cls-logo-1{fill:none;stroke:#ee741e;stroke-miterlimit:10;stroke-width:3px}.cls-logo-2{fill:#ee741e}</style>
+            </defs>
+            <path class="cls-logo-1"
+                  d="M24 1.5h167.33a2.49 2.49 0 012.49 2.5v21.72a21.39 21.39 0 01-21.39 21.39H4a2.49 2.49 0 01-2.5-2.5V24A22.5 22.5 0 0124 1.5z"/>
+            <path class="cls-logo-2"
+                  d="M244.67 287.43h2.21l2.9 9.27 2.89-9.27h2.21l-4.21 12.78h-1.79zM256.31 287.43h2.1v2.1h-2.1zm0 3.65h2.1v9.13h-2.1zM260.89 291.08H263v9.13h-2.1zm5.41 3.6a1.75 1.75 0 00-.44-1.27 1.66 1.66 0 00-1.25-.45 1.61 1.61 0 00-1.19.42 1.56 1.56 0 00-.43 1.18l-.18-1.89a3.21 3.21 0 011-1.28 2.54 2.54 0 011.48-.44 2.82 2.82 0 012.27 1 4.25 4.25 0 01.8 2.75v5.54h-2.1zM269.72 301.9h.78a.58.58 0 00.45-.18.78.78 0 00.16-.51v-10.13h2.1v10.42a2.51 2.51 0 01-.59 1.78 2.12 2.12 0 01-1.64.64h-1.26zm1.37-14.47h2.13v2.1h-2.13zM278.3 300.34l-.91-.48a3.24 3.24 0 01-1.4-1.39 4.73 4.73 0 01-.48-2.22v-1a5.26 5.26 0 01.46-2.31 3.3 3.3 0 011.35-1.46 4.23 4.23 0 012.12-.5 3.4 3.4 0 012 .59 3.62 3.62 0 011.26 1.69 7.32 7.32 0 01.44 2.67v.6h-6.2V295h4.25v-.1a2.59 2.59 0 00-.54-1.48 1.51 1.51 0 00-1.2-.53 1.88 1.88 0 00-1.47.59 2.53 2.53 0 00-.52 1.69v1.16a2.15 2.15 0 00.56 1.59 2.19 2.19 0 001.59.56 2.85 2.85 0 001-.2 2.92 2.92 0 00.91-.55l1.38 1.27a5 5 0 01-1.56 1 4.52 4.52 0 01-1.74.36zM288 300.34l-.73-.15a6.67 6.67 0 01-1.39-.46 5.07 5.07 0 01-1.16-.73l1.27-1.58a5.72 5.72 0 001.42.75 4.2 4.2 0 001.41.25 3.18 3.18 0 001.46-.26.8.8 0 00.49-.75.66.66 0 00-.24-.56 1.34 1.34 0 00-.62-.26 10.1 10.1 0 00-1.05-.14h-.62a9.26 9.26 0 01-1.57-.29 2 2 0 01-1-.73 2.46 2.46 0 01-.42-1.54 2.84 2.84 0 01.42-1.58 2.51 2.51 0 011.22-1 5.28 5.28 0 012-.33 6.92 6.92 0 011.37.14 7 7 0 011.28.39 6.53 6.53 0 011.15.65l-1.25 1.53a5.57 5.57 0 00-1.3-.59 4.47 4.47 0 00-1.27-.2 2.8 2.8 0 00-1.26.23.78.78 0 00-.43.71.52.52 0 00.24.46 1.64 1.64 0 00.59.21c.24 0 .58.08 1 .12h.4a11.1 11.1 0 011.68.29 2.28 2.28 0 011.13.77 2.65 2.65 0 01.47 1.68 2.92 2.92 0 01-.44 1.63 2.7 2.7 0 01-1.31 1 5.71 5.71 0 01-2.12.34zM299.78 291.08h2.13l-3.43 9.13H297l-3.43-9.13h2.13l2.06 6.12zM303.43 287.43h2.09v2.1h-2.09zm0 3.65h2.09v9.13h-2.09zM308 291.08h2.1v9.13H308zm5.41 3.6a1.75 1.75 0 00-.44-1.27 1.68 1.68 0 00-1.25-.45 1.64 1.64 0 00-1.2.42 1.59 1.59 0 00-.42 1.18l-.18-1.89a3.21 3.21 0 011-1.28 2.54 2.54 0 011.48-.44 2.78 2.78 0 012.26 1 4.19 4.19 0 01.81 2.75v5.54h-2.1zM319.23 299.9a2.73 2.73 0 01-1.06-1.31 5.14 5.14 0 01-.37-2.07v-1.74a5.45 5.45 0 01.36-2.08 2.82 2.82 0 011-1.31 3 3 0 011.66-.46 2.49 2.49 0 011.41.43 3 3 0 011 1.22l-.18 1.94a2.06 2.06 0 00-.18-.9 1.39 1.39 0 00-.54-.56 1.72 1.72 0 00-.85-.19 1.52 1.52 0 00-1.22.51 2.17 2.17 0 00-.43 1.42v1.72a2.12 2.12 0 00.43 1.41 1.54 1.54 0 001.22.49 1.62 1.62 0 00.85-.2 1.39 1.39 0 00.54-.56 2 2 0 00.18-.89l.12 2a2.39 2.39 0 01-2.33 1.59 3 3 0 01-1.61-.46zm.93 4l-.84-.39a3.06 3.06 0 01-1.3-1.07l1.42-1.3a2.18 2.18 0 00.78.64 2.33 2.33 0 001 .22 2 2 0 001.41-.49 1.79 1.79 0 00.52-1.38v-9.07h2.1v8.85a4.65 4.65 0 01-.47 2.16 3.11 3.11 0 01-1.37 1.36 4.67 4.67 0 01-2.17.47zM330.3 300.34l-.91-.48a3.19 3.19 0 01-1.4-1.39 4.73 4.73 0 01-.48-2.22v-1a5.26 5.26 0 01.46-2.31 3.22 3.22 0 011.34-1.46 4.29 4.29 0 012.12-.5 3.38 3.38 0 012 .59 3.57 3.57 0 011.27 1.69 7.33 7.33 0 01.43 2.67v.6h-6.19V295h4.24v-.1a2.52 2.52 0 00-.53-1.48 1.51 1.51 0 00-1.21-.53 1.84 1.84 0 00-1.46.59 2.48 2.48 0 00-.52 1.69v1.16a1.95 1.95 0 002.14 2.15 2.86 2.86 0 001-.2 3 3 0 00.91-.55l1.39 1.27a5.19 5.19 0 01-1.56 1 4.53 4.53 0 01-1.75.36zM337.42 291.08h2.1v9.13h-2.1zm5.41 3.6a1.75 1.75 0 00-.44-1.27 1.68 1.68 0 00-1.25-.45 1.62 1.62 0 00-1.2.42 1.59 1.59 0 00-.42 1.18l-.18-1.89a3.21 3.21 0 011-1.28 2.54 2.54 0 011.48-.44 2.8 2.8 0 012.26 1 4.19 4.19 0 01.81 2.75v5.54h-2.1z"
+                  transform="translate(-234.32 -270.82)"/>
+            <path class="cls-logo-1"
+                  d="M363.62 271.28c-.58 1.89-1.77 5.38-4.09 11.1-3.92 9.68-9.44 15.37-7.86 21.65s5.65 9.4 14.19 12c2.49.77 4.85 1.41 7 1.95"
+                  transform="translate(-234.32 -270.82)"/>
+            <path class="cls-logo-2"
+                  d="M363.63 287.43h2.1v12.78h-2.1zm1.11 5.46H372v2h-7.27zm6-5.46h2.1v12.78h-2.1zM376 299.64a2.71 2.71 0 01-.78-2.12 2.5 2.5 0 01.79-2 3.56 3.56 0 012.37-.68h2.44l.13 1.63h-2.55a1.41 1.41 0 00-.94.27 1 1 0 00-.31.81.94.94 0 00.41.84 2.12 2.12 0 001.22.28 3.76 3.76 0 001.49-.22.71.71 0 00.48-.68l.19 1.3a1.59 1.59 0 01-.52.72 2.51 2.51 0 01-.9.43 4.28 4.28 0 01-1.16.15 3.47 3.47 0 01-2.36-.73zm4.74-5.22a1.53 1.53 0 00-.45-1.18 1.82 1.82 0 00-1.28-.43 3.32 3.32 0 00-1 .17 3.2 3.2 0 00-.92.47l-1.4-1.18a3.52 3.52 0 011.41-1 5.22 5.22 0 011.9-.27 4.61 4.61 0 012 .4 2.9 2.9 0 011.26 1.16 3.65 3.65 0 01.44 1.83v5.87h-1.95zM385.25 291.08h2.1v9.13h-2.1zm5.4 3.6a1.75 1.75 0 00-.44-1.27A1.66 1.66 0 00389 293a1.61 1.61 0 00-1.19.42 1.59 1.59 0 00-.42 1.18l-.19-1.89a3.38 3.38 0 011-1.28 2.56 2.56 0 011.48-.44 2.81 2.81 0 012.27 1 4.25 4.25 0 01.8 2.75v5.54h-2.1zM396.47 299.9a2.81 2.81 0 01-1.07-1.31 5.33 5.33 0 01-.36-2.07v-1.74a5.45 5.45 0 01.36-2.08 2.82 2.82 0 011.05-1.31 3 3 0 011.65-.46 2.55 2.55 0 011.42.43 3.17 3.17 0 011 1.22l-.19 1.94a2.06 2.06 0 00-.18-.9 1.27 1.27 0 00-.54-.56 1.7 1.7 0 00-.85-.19 1.5 1.5 0 00-1.21.51 2.11 2.11 0 00-.43 1.42v1.72a2.07 2.07 0 00.43 1.41 1.52 1.52 0 001.21.49 1.6 1.6 0 00.85-.2 1.27 1.27 0 00.54-.56 2 2 0 00.18-.89l.13 2a2.46 2.46 0 01-.88 1.15 2.4 2.4 0 01-1.45.44 2.93 2.93 0 01-1.66-.46zm3.88-12.47h2.11v12.78h-2.11zM407.54 300.34l-.92-.48a3.24 3.24 0 01-1.4-1.39 4.73 4.73 0 01-.48-2.22v-1a5.26 5.26 0 01.46-2.31 3.3 3.3 0 011.35-1.46 4.26 4.26 0 012.12-.5 3.38 3.38 0 012 .59 3.62 3.62 0 011.26 1.69 7.32 7.32 0 01.44 2.67v.6h-6.2V295h4.25v-.1a2.59 2.59 0 00-.54-1.48 1.51 1.51 0 00-1.2-.53 1.88 1.88 0 00-1.47.59 2.53 2.53 0 00-.52 1.69v1.16a2.12 2.12 0 00.57 1.59 2.14 2.14 0 001.58.56 2.85 2.85 0 001-.2 2.92 2.92 0 00.91-.55l1.37 1.29a5 5 0 01-1.56 1 4.48 4.48 0 01-1.74.36zM416.75 297.53a.73.73 0 00.17.51.62.62 0 00.48.18h.6v2h-1.14a2.12 2.12 0 01-1.64-.63 2.53 2.53 0 01-.59-1.78v-10.38h2.1z"
+                  transform="translate(-234.32 -270.82)"/>
+        </svg>
+    </a>
+    <button class="navbar-toggler shadow-none border-0 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+    </button>
+    <div id="header-cart-button" class="d-flex d-none px-1 h-100 align-items-center cursor-pointer text-primary">
+        <span class="d-none d-md-inline-block px-1">Handlekorg</span>
+        <span class="d-inline-block d-md-none px-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
+                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
+            </svg>
+        </span>(<span id="item-count"></span>)
+    </div>
+    <div class="collapse navbar-collapse bg-white px-3" id="navbar">
+        <ul class="navbar-nav me-auto text-uppercase">
+            <li class="nav-item d-none">
+                @if (Context.Request.Path.Value?.StartsWith("/produktar") ?? false) {
+                    <a href="/produktar" class="nav-link active" title="@Localizer["Gå til /produktar"]" aria-current="page">@Localizer["Produktar"]</a>
+                } else {
+                    <a href="/produktar" class="nav-link" title="@Localizer["Gå til /produktar"]">@Localizer["Produktar"]</a>
+                }
+            </li>
+            <li class="nav-item">
+                @if (Context.Request.Path.Value?.StartsWith("/leverandørar") ?? false) {
+                    <a href="/leverandørar" class="nav-link active" title="@Localizer["Gå til /leverandørar"]" aria-current="page">@Localizer["Leverandørar"]</a>
+                } else {
+                    <a href="/leverandørar" class="nav-link" title="@Localizer["Gå til /leverandørar"]">@Localizer["Leverandørar"]</a>
+                }
+            </li>
+            <li class="nav-item">
+                @if (Context.Request.Path.Value?.StartsWith("/om-oss") ?? false) {
+                    <a href="/om-oss" class="nav-link active" title="@Localizer["Gå til /om-oss"]" aria-current="page">@Localizer["Om oss"]</a>
+                } else {
+                    <a href="/om-oss" class="nav-link" title="@Localizer["Gå til /om-oss"]">@Localizer["Om oss"]</a>
+                }
+            </li>
+            <li class="nav-item">
+                <a href="/#kontakt" class="nav-link" title="@Localizer["Gå til kontaktinformasjon"]">@Localizer["Kontakt oss"]</a>
+            </li>
+            @if (User.Identity?.IsAuthenticated ?? false) {
+                <li class="nav-item">
+                    <a href="/kontoret" class="nav-link" title="@Localizer["Gå til kontoret"]">
+                        Kontoret
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>
+
+<main class="flex-1" id="body-wrapper">
+
+    @RenderBody()
+
+</main>
+
+<footer>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-sm-6">
+                <span class="text-uppercase">&copy; @Options.Value.StoreName</span>
+                | <a href="/personvern">@Localizer["Personvernerklæring"]</a>
+                | <a href="/vilkår">@Localizer["Salsvilkår"]</a>
+                | <a href="https://www.facebook.com/VinjesvingenHandel">Facebook</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="cart-modal" class="modal modal-right" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-aside" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["Handlekorg"]</h5>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="@Localizer["Lukk"]"></button>
+            </div>
+            <div class="modal-body">
+                <div id="product-list"></div>
+            </div>
+            <div class="modal-footer flex-column align-items-end">
+                <div id="quote" class="mb-3 mb-md-4">
+                    <span class="h3">@Localizer["I alt"]: <span id="total"></span></span>
+                </div>
+
+                <div class="w-100">
+                    <button type="button" class="btn btn-primary btn-lg submit-cart w-100">@Localizer["Gå til kassa"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/dist/frontbundle.min.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

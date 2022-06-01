@@ -1,0 +1,33 @@
+@page "{code}"
+@using System.Net
+@model VSH.Pages.Errors.Index
+@{
+    ViewData["Title"] = Model.ErrorStatusCode switch {
+            HttpStatusCode.NotFound => "Fant ikkje sida",
+            var _ => "Uventa feil"
+            };
+}
+<section class="container py-3 py-lg-5">
+    @switch (Model.ErrorStatusCode) {
+        case HttpStatusCode.NotFound:
+            <div class="text-component text-center margin-bottom-lg">
+                <h1>Fant ikkje siden</h1>
+                <p>Beklagar, sida du prøvar å nå finnes ikkje.</p>
+                <p><a href="/">Gå til forsida</a> eller <a href="/kontakt">kontakt oss</a>.</p>
+            </div>
+            break;
+        case HttpStatusCode.InternalServerError:
+            <div class="text-component text-center margin-bottom-lg">
+                <h1>Her gjekk noko gale</h1>
+                <p>Vi jobbar med å løysa problemet, ver vennleg og prøv igjen seinare.</p>
+            </div>
+            break;
+        default:
+            <div class="text-component text-center margin-bottom-lg">
+                <h1>Heisann, her gjekk ikkje alt etter planen</h1>
+                <p>Ver vennleg og prøv igjen snart.</p>
+                <p><a href="/">Gå til forsida</a> eller <a href="/kontakt">kontakt oss</a>.</p>
+            </div>
+            break;
+    }
+</section>

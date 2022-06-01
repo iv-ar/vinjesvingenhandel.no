@@ -1,0 +1,163 @@
+@page "{categorySlug?}/{productSlug?}"
+@using VSH.Data.Static
+@using IOL.Helpers
+@model VSH.Pages.Produktar
+@{
+    var title = "Produktar";
+    if (Model.IsProduct) {
+        title = Model.CurrentProduct.Name;
+    } else if (Model.IsCategory) {
+        title = Model.Categories.FirstOrDefault()?.Name;
+    }
+
+    ViewData["Title"] = title;
+}
+
+<div class="container py-3 py-md-5">
+    @if (Model.IsCategory || Model.IsProduct) {
+        <nav aria-label="breadcrumb" class="pt-3">
+            <ol class="breadcrumb">
+                @if (Model.Categories?.Count == 1) {
+                    <li class="breadcrumb-item">
+                        <a href="/produktar">Produktar</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        @Model.Categories.SingleOrDefault()?.Name
+                    </li>
+                }
+                @if (Model.IsProduct) {
+                    <li class="breadcrumb-item">
+                        <a href="/produktar">Produktar</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/produktar/@Model.CategorySlug">@Model.CurrentProduct.Category.Name</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        @Model.CurrentProduct.Name
+                    </li>
+                }
+            </ol>
+        </nav>
+    }
+
+    @if (Model.IsProduct) {
+        <div class="row" id="single-product-wrapper" data-id="@Model.CurrentProduct.Id">
+            <div class="col-12 col-md-6">
+                @if (Model.CurrentProduct.Images.Any()) {
+                    if (Model.CurrentProduct.Images.Count > 1) {
+                        <div id="product-carousel" class="carousel">
+                            <div class="carousel-inner">
+                                @{ var index = 0; }
+                                @foreach (var secondaryImage in Model.CurrentProduct.Images.OrderBy(c => c.Order)) {
+                                    <div class="carousel-item @(index == 0 ? "active" : "")">
+                                        <img src="@secondaryImage.GetPath().WebPath" class="d-block w-100 @(index == 0 ? "lazyload blur-up" : "")" alt="">
+                                    </div>
+                                    index++;
+                                }
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start flex-wrap mt-2" id="carousel-navigator">
+                            @{ var secIndex = 0; }
+                            @foreach (var secondaryImage in Model.CurrentProduct.Images.OrderBy(c => c.Order)) {
+                                <div class="px-1 thumb-button cursor-pointer" data-thumb-index="@secIndex">
+                                    <img src="@secondaryImage.GetPath().WebPath" class="img-thumbnail lazyload blur-up border-0" alt="">
+                                </div>
+                                secIndex++;
+                            }
+                        </div>
+                    } else {
+                        var fileName = Model.CurrentProduct.GetPrimaryImage();
+                        <img src="@(fileName.WebPath.ExtractFileName() + "-150" + fileName.WebPath.ExtractExtension())"
+                             data-src="@fileName.WebPath"
+                             class="card-img-top lazyload blur-up"
+                             alt="Bilde av produktet">
+                    }
+                } else {
+                    <img src="/assets/profile/innrammet.svg"
+                         data-src="/assets/profile/innrammet.svg"
+                         class="card-img-top lazyload blur-up placeholder p-5"
+                         alt="Bilde av produktet">
+                }
+            </div>
+            <div class="col-12 pt-3 col-md-6">
+                <div class="row">
+                    <h2 class="title">@Model.CurrentProduct.Name</h2>
+                    <p class="description">@Model.CurrentProduct.Description</p>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-end align-items-center buttons">
+                        @if (Model.CurrentProduct.IsAvailable) {
+                            <div class="add-to-cart-button">
+                                <div class="counter-wrapper"></div>
+                                <button class="btn btn-outline-primary shadow-none disabled bag-button" data-product-max-count="@Model.CurrentProduct.Count">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </button>
+                                <span class="product-price text-bold" data-price="@Model.CurrentProduct.Price">@Model.CurrentProduct.Price@(Model.CurrentProduct.ReadablePriceSuffix)</span>
+                            </div>
+                        } else {
+                            <button class="btn btn-lg btn-outline-primary shadow-none disabled">
+                                Utselt
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    } else if ((Model.IsCategory || Model.IsCategories) && Model.Categories?.Count >= 1) {
+        foreach (var category in Model.Categories.Where(category => category.Products.Count >= 1)) {
+            <div class="row mb-3">
+                <h2 class="h2">@category.Name</h2>
+                @foreach (var product in category.Products.Where(c => c.IsVisible)) {
+                    <div class="col-sm-12 col-md-6 col-xl-3 p-1 px-2 mb-3">
+                        <div class="card product-card" data-id="@product.Id">
+                            @if (product.Images.Any()) {
+                                var fileName = product.GetPrimaryImage();
+                                <a href="@product.WebPath()">
+                                    <img src="@(fileName.WebPath.ExtractFileName() + "-150" + fileName.WebPath.ExtractExtension())"
+                                         data-src="@fileName.WebPath"
+                                         class="card-img-top lazyload blur-up"
+                                         alt="">
+                                </a>
+                            } else {
+                                <a href="@product.WebPath()">
+                                    <img src="@AppPaths.DefaultProductImage.WebPath"
+                                         data-src="@AppPaths.DefaultProductImage.WebPath"
+                                         class="card-img-top lazyload blur-up placeholder"
+                                         alt="">
+                                </a>
+                            }
+                            <div class="card-body">
+                                <a class="card-title fs-3 text-reset text-decoration-none" href="@product.WebPath()">
+                                    @product.Name
+                                </a>
+                                <div class="d-flex justify-content-end align-items-center pt-1 buttons">
+                                    @if (product.IsAvailable) {
+                                        <div class="add-to-cart-button">
+                                            <div class="counter-wrapper"></div>
+                                            <button class="btn btn-outline-primary shadow-none disabled bag-button" data-product-max-count="@product.Count">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </button>
+                                            <span class="product-price text-bold" data-price="@product.Price">@product.Price@(product.ReadablePriceSuffix)</span>
+                                        </div>
+                                    } else {
+                                        <button class="btn btn-link float-right shadow-none disabled">
+                                            Utselt
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    } else {
+        <h2>
+            Heisann, her er det tomt for augneblinken. Prøv igjen snart.
+        </h2>
+    }
+</div>

@@ -1,0 +1,4 @@
+bin/
+obj/
+**/src/AppData
+**/src/wwwroot/assets/images

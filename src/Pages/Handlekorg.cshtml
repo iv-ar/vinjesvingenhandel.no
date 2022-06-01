@@ -1,0 +1,100 @@
+@page
+@model VSH.Pages.Handlekorg
+@{
+    ViewData["Title"] = "Handlekorg";
+}
+
+<div class="container py-3 py-md-5">
+    <div class="row">
+        <div class="alert alert-info p-3 d-none" id="order-alert"></div>
+        <div class="col-12 col-lg-8 pe-lg-5">
+            <div class="spinner-border text-primary m-0-auto d-flex" role="status" id="order-summary-spinner">
+                <span class="visually-hidden">Lastar...</span>
+            </div>
+            <div class="d-none" id="order-summary-wrapper">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Produkt</th>
+                            <th scope="col">Antall</th>
+                            <th scope="col">Pris</th>
+                            <th scope="col">Totalsum</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="row d-flex float-right flex-column" id="total-wrapper">
+                    <div class="d-flex flex-column w-max-content">
+                        <span class="fs-3">Totalt inkl. MVA: <span id="total-sum"></span></span>
+                        <span>Av dei MVA: <span id="total-tax"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4" id="submit-order-wrapper">
+            <form id="submit-order-form" onsubmit="return false">
+                <div class="loader">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Lastar...</span>
+                    </div>
+                </div>
+                <fieldset class="py-3">
+                    <div class="mb-3">
+                        <label for="input-name" class="form-label">Namn <span class="text-danger">&midast;</span></label>
+                        <input type="text" id="input-name" class="form-control" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="input-phone" class="form-label">Telefon <span class="text-danger">&midast;</span></label>
+                            <input type="tel" inputmode="tel" id="input-phone" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label for="input-email" class="form-label">E-postadresse <span class="text-danger">&midast;</span></label>
+                            <input type="email" inputmode="email" id="input-email" class="form-control" required>
+                        </div>
+                    </div>
+                    <label for="input-comment" class="form-label">Anna informasjon</label>
+                    <textarea class="form-control" id="input-comment" rows="3"></textarea>
+                </fieldset>
+                <ul id="form-errors" class="alert alert-danger py-3 ps-5 d-none"></ul>
+                <fieldset class="py-3">
+                    <legend>Betal med</legend>
+                    <div class="nav nav-pills nav-fill" role="tablist">
+                        <a class="nav-link active" id="vipps-tab-buttom" data-bs-toggle="tab" href="#vipps-tab" role="tab" aria-controls="vipps-tab" aria-selected="true">Vipps</a>
+                        <a class="nav-link ms-sm-0 ms-md-2" id="invoice-tab-buttom" data-bs-toggle="tab" href="#invoice-tab" role="tab" aria-controls="invoice-tab" aria-selected="false">Faktura på mail</a>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane py-3 active" id="vipps-tab" role="tabpanel">
+                            <p>Gå til vipps for å fullføre betalinga</p>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="vipps-terms-confirm" required>
+                                <label class="form-check-label" for="vipps-terms-confirm">
+                                    Eg samtykker til <a href="/vilkår">salsvilkårane</a> og <a href="/personvern">personvernerklæringa.</a>
+                                </label>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-link shadow-none submit-vipps">
+                                    <img src="/assets/profile/vipps_button.png" alt="Fortsett med vipps">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tab-pane py-3" id="invoice-tab" role="tabpanel">
+                            <p>Du får tilsendt faktura på mail til <span id="invoice-mail">e-postadressa di</span></p>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="invoice-terms-confirm" required>
+                                <label class="form-check-label" for="invoice-terms-confirm">
+                                    Eg samtykker til <a href="/vilkår">salsvilkårane</a> og <a href="/personvern">personvernerklæringa.</a>
+                                </label>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary btn-lg shadow-none submit-invoice">Send bestilling</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+@using IOL.Helpers
+
+@inject IStringLocalizer<SharedPageResources> Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures;
+}
+
+<div>
+    <form asp-controller="Root"
+          asp-action="SetCulture"
+          asp-route-returnUrl="@Context.Request.Path"
+          method="post"
+          class="row row-cols-lg-auto g-3 align-items-center"
+          role="form">
+        <div class="col">
+            <select class="form-control" name="culture">
+                @foreach (var item in cultureItems) {
+                    if (item.Name == requestCulture?.RequestCulture.UICulture.Name) {
+                        <option value="@item.Name" selected>@item.NativeName.Capitalize()</option>
+                    } else {
+                        <option value="@item.Name">@item.NativeName.Capitalize()</option>
+                    }
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default btn-xs">@Localizer["Lagre"]</button>
+    </form>
+</div>

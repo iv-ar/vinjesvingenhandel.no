@@ -1,0 +1,21 @@
+@page
+@using VSH.Data.Enums
+@using VSH.Utilities
+@using IOL.Helpers
+@model VSH.Pages.Kontoret.Dokumenter
+@{
+    ViewData["Title"] = "Dokumenter";
+}
+
+<div class="d-flex mb-3">
+    <select name="document-selector" id="document-selector" class="form-select">
+        @foreach (var option in EnumHelpers.GetValues<DocumentType>()) {
+            <option value="@(option)">@EnumName.ForDocumentType(option)</option>
+        }
+    </select>
+    <button class="btn btn-outline-primary ms-3 fs-3" id="publish-button" title="Publiser">
+        <i class="bi bi-cloud-upload"></i>
+    </button>
+</div>
+
+<div id="editor"></div>

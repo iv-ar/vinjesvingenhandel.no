@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <UserSecretsId>c0ee06d5-7110-4457-8e58-8ccf3857b533</UserSecretsId>
+        <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
+        <PackageReference Include="IOL.Helpers" Version="2.0.0" />
+        <PackageReference Include="IOL.VippsEcommerce" Version="2.0.0" />
+        <PackageReference Include="Magick.NET-Q8-x64" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+        <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+        <PackageReference Include="Serilog.Sinks.Seq" Version="5.1.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Update="wwwroot/styles/**" CopyToPublishDirectory="Never" />
+        <Content Update="wwwroot/scripts/**" CopyToPublishDirectory="Never" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\SharedPageResources.nb.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>SharedPageResources.nb.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\SharedControllerResources.nb.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>SharedControllerResources.nb.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\SharedServiceResources.nb.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>SharedServiceResources.nb.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+    <Target Name="MakeAppDataFoler" AfterTargets="Build">
+        <MakeDir Directories="$(OutDir)/AppData" Condition="!Exists('$(OutDir)/AppData')" />
+    </Target>
+</Project>

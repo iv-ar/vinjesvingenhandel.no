@@ -1,0 +1,168 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+label {
+  user-select: none;
+}
+
+img {
+  user-select: none;
+}
+
+.btn {
+  .spinner-border {
+    display: none;
+  }
+
+  .disabled {
+    user-select: none;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: .4;
+  }
+
+  &.loading {
+    user-select: none;
+    pointer-events: none;
+    cursor: wait;
+    opacity: .5;
+
+    > .spinner-border {
+      display: inline-block;
+    }
+  }
+}
+
+form {
+  .loader {
+    display: none;
+  }
+
+  .disabled {
+    user-select: none;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: .4;
+  }
+
+  &.loading {
+    user-select: none;
+    pointer-events: none;
+    cursor: wait;
+    opacity: .5;
+  }
+}
+
+img {
+  &.object-fit-cover {
+    object-fit: cover;
+  }
+
+  &.object-fit-fill {
+    object-fit: fill;
+  }
+
+  &.object-fit-contain {
+    object-fit: contain;
+  }
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.btn {
+  border-radius: 0;
+
+  &.btn-primary {
+    color: white;
+  }
+
+  &.btn-outline-primary:hover {
+    color: white;
+  }
+
+}
+
+.m-0-auto {
+  margin: 0 auto;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.w-150px {
+  width: 150px;
+}
+
+.mw-150px {
+  max-width: 150px;
+}
+
+.mw-450px {
+  max-width: 450px;
+}
+
+.w-100px {
+  width: 100px
+}
+
+.w-max-content {
+  width: max-content;
+}
+
+.mw-100px {
+  max-width: 100px
+}
+
+.mh-150px {
+  min-height: 150px;
+}
+
+.number-input {
+  max-width: 90px;
+  width: 90px;
+  display: flex;
+  height: 30px;
+  background: rgba($vsh-orange, 0.8);
+  border-radius: 0;
+  border: 1px solid rgba($vsh-orange, 0.8);
+
+  input {
+    max-width: 5ch;
+    border: none;
+    text-align: center;
+    -moz-appearance: textfield;
+  }
+
+  button {
+    border: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 30px;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.blur-up {
+  opacity: 0;
+  transition: opacity 200ms;
+
+  &.lazyloaded {
+    opacity: 1;
+  }
+}
+

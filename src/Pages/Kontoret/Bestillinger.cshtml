@@ -1,0 +1,67 @@
+@page
+@model VSH.Pages.Kontoret.Bestillinger
+@{
+    ViewData["Title"] = "Bestillinger";
+}
+<div class="d-flex justify-content-center my-5" id="orders-loader">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Laster...</span>
+    </div>
+</div>
+<div id="orders-wrapper" class="d-none py-3"></div>
+
+<div id="order-info-modal" tabindex="-1" class="modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="loader">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div id="loaded">
+                    <span class="text-bold">Betalingsmetode:</span> <span id="order-payment-type"></span> <br>
+                    <div class="ps-5 d-none" id="vipps-section">
+                        <span class="text-bold">Vipps - status:</span> <span id="vipps-status"></span> <br>
+                        <span class="text-bold">Vipps - lenke:</span> <span id="vipps-link"></span> <br>
+                        <button id="vipps-order-capture" class="btn btn-link d-none" title="Trykk her for å signalisere om levert bestilling">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Bestillingen er levert
+                        </button>
+                        <button id="vipps-order-refund" class="btn btn-link d-none" title="Trykk her for å refundere bestillingen hos vipps">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Bestillingen er refundert
+                        </button>
+                        <button id="vipps-order-cancel" class="btn btn-link d-none" title="Trykk her for å kansellere bestillingen hos vipps">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Bestillingen er kansellert
+                        </button>
+                    </div>
+                    <span class="text-bold">Status:</span> <span id="order-status"></span> <br>
+                    <span class="text-bold">Navn:</span> <span id="contact-info-name"></span> <br>
+                    <span class="text-bold">E-postadresse:</span> <span id="contact-info-emailAddress"></span> <br>
+                    <span class="text-bold">Telefon:</span> <span id="contact-info-phoneNumber"></span> <br>
+                    <span class="text-bold">Referanse:</span> <span id="order-reference"></span> <br>
+                    <span class="text-bold">Bestillingsdato:</span> <span id="order-date"></span> <br>
+                    <span class="text-bold">Totalt:</span> <span id="order-total"></span> <br>
+                    <span class="text-bold">Kommentar:</span> <span id="order-comment"></span>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Navn</th>
+                            <th scope="col">Antall</th>
+                            <th scope="col">Pris</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="_Forsiden" xml:space="preserve">
+        <value>Frontpage</value>
+    </data>
+    <data name="_Lagre" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="_Språk" xml:space="preserve">
+        <value>Language</value>
+    </data>
+    <data name="_Gå videre" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    <data name="_Lukk" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="_Handlekurv" xml:space="preserve">
+        <value>Cart</value>
+    </data>
+    <data name="_Personvernerklæring" xml:space="preserve">
+        <value>Privacy policy</value>
+    </data>
+    <data name="_Kontakt" xml:space="preserve">
+        <value>Contact</value>
+    </data>
+    <data name="_Produkter" xml:space="preserve">
+        <value>Products</value>
+    </data>
+    <data name="_Gå til kontoret" xml:space="preserve">
+        <value>Go to the office</value>
+    </data>
+    <data name="_I alt" xml:space="preserve">
+        <value>In total</value>
+    </data>
+</root>

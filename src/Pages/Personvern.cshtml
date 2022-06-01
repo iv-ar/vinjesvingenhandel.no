@@ -1,0 +1,8 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Personvern";
+}
+<div class="container py-3 py-md-5 dynamic-content">
+    @Html.Raw(Model.PrivacyPolicyHtml)
+</div>

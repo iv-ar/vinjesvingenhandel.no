@@ -1,0 +1,34 @@
+@page
+@using Microsoft.AspNetCore.Antiforgery
+@model VSH.Pages.LoggInn
+@inject IAntiforgery Antiforgery
+@{
+    ViewData["Title"] = "Logg inn";
+    var token = Antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
+}
+
+<div class="container mw-450px py-3 py-md-5">
+    <div class="alert alert-danger d-none" id="error" role="alert">
+        <h4 class="alert-header" id="error-title"></h4>
+        <p class="mb-0" id="error-message"></p>
+    </div>
+    <form id="login-form" onsubmit="return false">
+        <div class="mb-3">
+            <label for="input-email" class="form-label">E-postadresse</label>
+            <input type="email" class="form-control" name="input-email" id="input-email" placeholder="navn@domene.no" autofocus required>
+        </div>
+        <div class="mb-3">
+            <label for="input-password" class="form-label">Passord</label>
+            <input type="password" class="form-control" name="input-password" id="input-password" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="persist-session">
+            <label class="form-check-label" for="persist-session">Husk meg</label>
+        </div>
+        <input type="hidden" name="xsrf" value="@token">
+        <button type="submit" id="submit" class="btn btn-primary float-right">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            Logg inn
+        </button>
+    </form>
+</div>

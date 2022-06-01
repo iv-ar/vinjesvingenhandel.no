@@ -1,0 +1,9 @@
+@page "/om-oss"
+@model VSH.Pages.OmOss
+@{
+    ViewData["Title"] = "Om oss";
+}
+
+<div class="container py-3 py-md-5 dynamic-content">
+    @Html.Raw(Model.AboutUsPageHtml)
+</div>

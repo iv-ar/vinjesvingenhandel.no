@@ -1,0 +1,7 @@
+{
+  "manifest_version": 2,
+  "name": "Vinjesvingen Handel - Kontoret",
+  "version": "0.1",
+  "start_url": "/kontoret",
+  "display": "minimal-ui"
+}

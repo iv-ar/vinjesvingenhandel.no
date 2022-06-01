@@ -1,0 +1,190 @@
+:root {
+  --navbar-height: 72px;
+}
+
+body {
+  padding-top: var(--navbar-height);
+  color: #333;
+}
+
+.big-text {
+  font-size: 1.875rem;
+}
+
+.navbar {
+  height: var(--navbar-height);
+
+  .nav-link.active {
+    border-bottom: 2px solid;
+    font-weight: 600;
+  }
+
+  .navbar-brand {
+    width: 200px;
+  }
+
+  .navbar-toggler {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 72px;
+    height: var(--navbar-height);
+  }
+}
+
+#frontpage-image {
+  margin-right: -5rem;
+  margin-left: -12.5rem;
+}
+
+@media (max-width: 1200px) {
+  #frontpage-image {
+    margin-right: -20rem;
+    margin-left: -8.5rem;
+  }
+}
+
+#header-cart-button {
+  position: absolute;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  padding: 10px 20px;
+  margin-right: 25px;
+  max-height: var(--navbar-height);
+}
+
+.contact-section {
+  ul {
+    list-style: none;
+  }
+}
+
+.favorites {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  gap: 15px;
+  flex-direction: row;
+
+  .favorite-card {
+    width: 450px;
+
+    img {
+      width: 100%;
+      min-width: 275px;
+      height: calc(100% - 50px);
+      object-fit: contain;
+    }
+
+    h4 {
+      padding: 10px 12px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  #header-cart-button {
+    margin-right: 58px;
+    padding: 0;
+  }
+  .navbar {
+
+    .nav-link {
+      padding-left: 3rem;
+    }
+  }
+
+  #carousel-navigator {
+    display: none !important;
+  }
+}
+
+#product-carousel {
+  min-height: 400px;
+
+  .carousel-item img {
+    max-height: 400px;
+    object-fit: contain;
+  }
+}
+
+.thumb-button {
+  img {
+    max-width: 200px;
+    width: 200px;
+    max-height: 128px;
+    height: 128px;
+    object-fit: cover;
+  }
+
+  &:hover > img {
+    background: $vsh-orange;
+  }
+}
+
+.add-to-cart-button {
+  box-shadow: .125rem .125rem #e00751;
+  padding: .3125rem;
+  font-size: 1.25rem;
+  background: $vsh-orange;
+  color: #fafafa !important;
+  display: flex;
+  align-items: center;
+
+  .counter-wrapper .number-input {
+    margin-right: 15px;
+  }
+
+  .bag-button {
+    color: white;
+    font-weight: 600;
+    font-style: italic;
+  }
+}
+
+
+.product-card {
+  border: none;
+
+  .card-img-top {
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    object-fit: contain;
+  }
+
+  .card-body {
+    padding: .5rem;
+  }
+
+  .placeholder {
+    object-fit: contain;
+    padding: 0 25px;
+  }
+}
+
+.dynamic-content img {
+  max-width: 100% !important;
+  object-fit: contain;
+}
+
+#payment-tab-content .tab-pane {
+  min-height: 75px;
+}
+
+#cart-modal {
+  padding: 0 !important;
+
+  .modal-dialog {
+    width: 450px;
+  }
+
+  @media (max-width: 451px) {
+    .modal-dialog {
+      width: 100%;
+      max-width: 100%;
+      transition: none;
+    }
+  }
+}

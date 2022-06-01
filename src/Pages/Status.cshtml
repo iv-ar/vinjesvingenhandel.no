@@ -1,0 +1,136 @@
+@page "{orderReference}"
+@using VSH.Data.Enums
+@using VSH.Utilities
+@using System.Globalization
+@using IOL.Helpers
+@model VSH.Pages.Status
+
+@{
+    string title;
+    if (Model.CurrentOrder == default) {
+        title = "Fant ikkje ordren";
+    } else {
+        title = Model.CurrentOrder.Status switch {
+                OrderStatus.CANCELLED => "Kansellert bestilling",
+                OrderStatus.FAILED => "Feila bestilling",
+                OrderStatus.COMPLETED => "Fullført bestilling",
+                OrderStatus.AWAITING_INVOICE
+                        or OrderStatus.AWAITING_VIPPS
+                        or OrderStatus.IN_PROGRESS => "Ventar på betaling",
+                var _ => "Uventa feil"
+                };
+    }
+    ViewData["Title"] = title;
+}
+<div class="container py-5">
+    @if (Model.CurrentOrder != default) {
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="row mb-3">
+                    <h2>Din bestilling</h2>
+                    <hr>
+                    <p>
+                        <span class="text-bold">Status:</span>
+                        @(title)
+                    </p>
+                    <p>
+                        <span class="text-bold">Betalingsmetode:</span>
+                        @(EnumName.ForPaymentType(Model.CurrentOrder.PaymentType))
+                        @if (Model.CurrentOrder.PaymentType == OrderPaymentType.INVOICE_BY_EMAIL) {
+                            <small>Du får tilsendt faktura til din e-postadresse</small>
+                        }
+                    </p>
+                    <p>
+                        <span class="text-bold">Referanse:</span>
+                        @Model.CurrentOrder.OrderReference
+                    </p>
+                    <p>
+                        <span class="text-bold">Dato:</span>
+                        @Model.CurrentOrder.Created.ToOsloTimeZone().ToString("dd.MM.yyyy HH:mm", new CultureInfo("nb-NO"))
+                    </p>
+
+                    @if (!Model.CurrentOrder.Comment.IsNullOrWhiteSpace()) {
+                        <p>
+                            <span class="text-bold">Øvrig informasjon:</span>
+                            @Model.CurrentOrder.Comment
+                        </p>
+                    }
+
+                </div>
+                <div class="row">
+                    <h3>Kontaktinformasjon</h3>
+                    <hr>
+                    <p>
+                        <span class="text-bold">Namn:</span>
+                        @Model.CurrentOrder.ContactInfo.Name
+                    </p>
+
+                    @if (!Model.CurrentOrder.ContactInfo.EmailAddress.IsNullOrWhiteSpace()) {
+                        <p>
+                            <span class="text-bold">E-postadresse:</span>
+                            @Model.CurrentOrder.ContactInfo.EmailAddress
+                        </p>
+                    }
+
+                    @if (!Model.CurrentOrder.ContactInfo.PhoneNumber.IsNullOrWhiteSpace()) {
+                        <p>
+                            <span class="text-bold">Telefonnummer:</span>
+                            @Model.CurrentOrder.ContactInfo.PhoneNumber
+                        </p>
+                    }
+                </div>
+                <div class="row">
+                    <h3>Spørsmål?</h3>
+                    <hr>
+                    <p><a href="/#kontakt">Ta gjerne kontakt</a> hvis du har spørsmål vedrørande ordren din.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="row">
+                    <h2>Produktar</h2>
+                    <hr>
+                    <div class="h-100">
+                        @foreach (var product in Model.CurrentOrderProducts) {
+                            <div class="border-0 my-3 d-flex align-items-center">
+                                <a href="@product.DbProdcut.WebPath()">
+                                    <img src="@product.DbProdcut.GetPrimaryImage().WebPath" class="blur-up lazyload w-150px object-fit-contain" alt="">
+                                </a>
+                                <div class="p-2 w-100">
+                                    <a href="@product.DbProdcut.WebPath()" class="h3">@product.DbProdcut.Name</a>
+                                    <div class="d-flex flex-column align-items-end w-100">
+                                        <span>Antall: <span>@product.OrderProduct.NumberOfItems</span></span>
+                                        <span class="fs-4">
+                                            Totalt:
+                                            <span>
+                                                @product.OrderProduct.Total().ToString("N", new NumberFormatInfo {
+                                                    CurrencyDecimalDigits = 2
+                                                }),-
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="d-flex float-right flex-column">
+                        <div class="d-flex flex-column">
+                            <span class="h2">
+                                Totalt: @Model.CurrentOrder.Total().ToString("N", new NumberFormatInfo {
+                                            CurrencyDecimalDigits = 2
+                                        }),-
+                            </span>
+                            <span>
+                                Av dei MVA: @Model.CurrentOrder.Tax().ToString("N", new NumberFormatInfo {
+                                                CurrencyDecimalDigits = 2
+                                            }),-
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    } else {
+        <h2>Vi fant ikkje din ordre</h2>
+        <p>Ver vennleg og <a href="/#kontakt">kontakt oss</a> hvis du meiner dette er ein feil.</p>
+    }
+</div>
