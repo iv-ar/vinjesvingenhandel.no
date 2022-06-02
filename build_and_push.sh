@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 do_push() {
   IMAGE_NAME="website"
-  HUB_NAME="dr.ivarlovlie.no/vsh/website"
+  HUB_NAME="dr.ivar.systems/vsh/website"
   COMMIT_HASH=$(git rev-parse --short HEAD)
 
   pushd src/wwwroot
